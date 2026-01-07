@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+
 
 namespace CuaHangDT
 {
@@ -17,120 +19,166 @@ namespace CuaHangDT
         {
             InitializeComponent();
         }
-        DataSet dsDienThoai;
-        private void btnHienDS_Click(object sender, EventArgs e)
+        //Khai báo DataAdapter
+        SqlDataAdapter boDocGhiSP;
+        //Khai báo DataSet
+        DataSet dsSanPham;
+        //Khai Báo SqlCommandBuilder
+        SqlCommandBuilder boPhatSinh;
+        void loadData()
         {
-            dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvSanPham.DataSource = GetAllSP().Tables[0];
-            //dataGridView1.DataMember = "San_Pham";
+            string sqlSelect = "Select * from San_Pham";
+                boDocGhiSP = new SqlDataAdapter(sqlSelect, Connection.stringConnection);
+                dsSanPham = new DataSet();
+                boDocGhiSP.Fill(dsSanPham, "San_Pham");
+                dgvSanPham.DataSource = dsSanPham.Tables[0];
+            dgvSanPham.Columns["MaSP"].HeaderText = "Mã Sản Phẩm";
+            dgvSanPham.Columns["TenSP"].HeaderText = "Tên Sản Phẩm";
+            dgvSanPham.Columns["HangSX"].HeaderText = "Hãng Sản Xuất";
+            dgvSanPham.Columns["GiaBan"].HeaderText = "Giá Bán";
+            dgvSanPham.Columns["HinhAnh"].HeaderText = "Hình Ảnh";
+            //auto giãn cột theo nội dung.
+            dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //format tiền trực tiếp trên datagridview
+            dgvSanPham.Columns["GiaBan"].DefaultCellStyle.Format = "N0";
+            dgvSanPham.Columns["GiaBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+
         }
-        DataSet GetAllSP()
+        private void btnChonAnh_Click(object sender, EventArgs e)
         {
-            DataSet dataSP = new DataSet();
-            //Sql Connection
-            //sau khi sài xong là bỏ
-            string query = "Select * from San_Pham";
-            using (SqlConnection connection = new SqlConnection(Connection.stringConnection))
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image files|*.jpg;*.png;*.jpeg;*.bmp";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
-                connection.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
+                // Hiển thị ảnh
+                using (var bmp = new Bitmap(ofd.FileName))
+                {
+                    pBHinhAnh.Image = new Bitmap(bmp);
+                }
 
-                adapter.Fill(dataSP);
-
-
-                connection.Close();
-            }    
-
-
-                return dataSP;
-        }
-
-            private void Home_Load(object sender, EventArgs e)
-        {
-            // Thêm các hãng điện thoại phổ biến
-            cbxHangSX.Items.Add("Apple");
-            cbxHangSX.Items.Add("Samsung");
-            cbxHangSX.Items.Add("Oppo");
-            cbxHangSX.Items.Add("Xiaomi");
-            cbxHangSX.Items.Add("Realme");
-
-            cbxHangSX.SelectedIndex = 0; // Chọn item đầu tiên
-        }
-        private void GetValuesTextBox(object sender, EventArgs e)
-        {
-            string maSP = txtMaSP.Text;
-            string tenSP = txtTenSP.Text;
-            string hangSX = cbxHangSX.Text;
-            decimal giaBan = decimal.Parse(txtGiaBan.Text);
-        }
-         private void btnThem_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        // xóa dữ liệu trong TextBox
-        private void ClearTextBoxes()
-        {
-            txtMaSP.Clear();
-            txtTenSP.Clear();
-            txtGiaBan.Clear();
-            txtMaSP.Focus(); // Đưa con trỏ về TextBox đầu tiên
-        }
-
-        private void cbxHangSX_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Có thể hiển thị thông tin hoặc lọc sản phẩm theo hãng
-            if (cbxHangSX.SelectedIndex != -1)
-            {
-                string hangDaChon = cbxHangSX.SelectedItem.ToString();
-                // Ví dụ: Lọc sản phẩm theo hãng
-                // LocSanPhamTheoHang(hangDaChon);
+                // Lưu đường dẫn
+                pBHinhAnh.Tag = ofd.FileName;
             }
         }
-
-        private void btnChonAnh_Click(object sender, EventArgs e)
+        private void btnThem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Tạo OpenFileDialog để chọn file ảnh
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-
-                // Thiết lập bộ lọc chỉ cho phép chọn file ảnh
-                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp|All Files|*.*";
-                openFileDialog.Title = "Chọn ảnh sản phẩm";
-
-                // Hiển thị dialog và kiểm tra nếu người dùng chọn file
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                DataRow dongMoi = dsSanPham.Tables[0].NewRow();
+                dongMoi["MaSP"] = txtMaSP.Text;
+                dongMoi["TenSP"] = txtTenSP.Text;
+                dongMoi["HangSX"] = cbxHangSX.Text;
+                decimal giaBan;
+                if (!decimal.TryParse(txtGiaBan.Text.Trim(), out giaBan))
                 {
-                    // Lấy đường dẫn file ảnh
-                    string imagePath = openFileDialog.FileName;
-
-                    // Hiển thị ảnh lên PictureBox
-                    pictureBox1.Image = Image.FromFile(imagePath);
-                    pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage; // Hoặc Zoom để giữ tỷ lệ
-
-                    // Lưu đường dẫn ảnh (nếu cần)
-                    pictureBox1.Tag = imagePath;
-
-                    MessageBox.Show("Chọn ảnh thành công!", "Thông báo",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Giá bán phải là số!");
+                    return;
                 }
+                dongMoi["GiaBan"] = giaBan;
+                dongMoi["HinhAnh"] = pBHinhAnh.Tag?.ToString();
+
+                dsSanPham.Tables[0].Rows.Add(dongMoi);
+
+                //sinh SQL INSERT
+                SqlCommandBuilder boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
+                boDocGhiSP.Update(dsSanPham.Tables[0]);
+
+                MessageBox.Show("Thêm thành công");
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi chọn ảnh: " + ex.Message, "Lỗi",
+                MessageBox.Show("Lỗi khi thêm: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void tSMnDanhMuc_Click(object sender, EventArgs e)
+        private void frmQuanLySanPham_Load(object sender, EventArgs e)
         {
+            Connection connection = new Connection();
+            connection.testConnection();
+            //Thêm dữ liệu vào combobox
+            cbxHangSX.Items.Add("Apple");
+            cbxHangSX.Items.Add("Samsung");
+            cbxHangSX.Items.Add("Xiaomi");
+            cbxHangSX.Items.Add("Oppo");
+            cbxHangSX.Items.Add("Vivo");
 
+            loadData();
         }
 
-        private void groupBox2_Enter(object sender, EventArgs e)
+        private void btnXoa_Click(object sender, EventArgs e)
         {
+            //Xóa hàng trong dataSet
+            dsSanPham.Tables[0].Rows[dgvSanPham.CurrentRow.Index].Delete();
+                boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
+                boDocGhiSP.Update(dsSanPham.Tables[0]);
+            MessageBox.Show("Xóa thành công.");
+        }
 
+        private void dgvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+            DataGridViewRow row = dgvSanPham.Rows[e.RowIndex];
+            txtMaSP.Text = dgvSanPham.CurrentRow.Cells[0].Value.ToString();
+            txtTenSP.Text = dgvSanPham.CurrentRow.Cells[1].Value.ToString();
+            cbxHangSX.Text = dgvSanPham.CurrentRow.Cells[2].Value.ToString();
+            txtGiaBan.Text = dgvSanPham.CurrentRow.Cells[3].Value.ToString();
+
+            // hiển thị hình ảnh
+            string path = row.Cells["HinhAnh"].Value?.ToString();
+
+            if (!string.IsNullOrEmpty(path) && File.Exists(path))
+            {
+                using (var bmp = new Bitmap(path))
+                {
+                    pBHinhAnh.Image = new Bitmap(bmp);
+                }
+                pBHinhAnh.Tag = path;
+            }
+            else
+            {
+                pBHinhAnh.Image = null;
+                pBHinhAnh.Tag = null;
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvSanPham.CurrentRow == null)
+                {
+                    MessageBox.Show("Vui lòng chọn sản phẩm cần sửa!");
+                    return;
+                }
+
+                int rowIndex = dgvSanPham.CurrentRow.Index;
+                DataRow row = dsSanPham.Tables[0].Rows[rowIndex];
+
+                // KHÔNG sửa MaSP (khóa chính)
+                row["TenSP"] = txtTenSP.Text;
+                row["HangSX"] = cbxHangSX.Text;
+
+                decimal giaBan;
+                if (!decimal.TryParse(txtGiaBan.Text.Replace(".", "").Replace(",", ""), out giaBan))
+                {
+                    MessageBox.Show("Giá bán phải là số!");
+                    return;
+                }
+                row["GiaBan"] = giaBan;
+
+                row["HinhAnh"] = pBHinhAnh.Tag?.ToString();
+
+                // Sinh lệnh UPDATE
+                SqlCommandBuilder boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
+                boDocGhiSP.Update(dsSanPham.Tables[0]);
+
+                MessageBox.Show("Sửa thành công");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa: " + ex.Message);
+            }
         }
     }
 }

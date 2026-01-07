@@ -1,6 +1,6 @@
 ﻿namespace CuaHangDT
 {
-    partial class Form1
+    partial class frmDangNhap
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmDangNhap));
             this.grbDangNhap = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -131,7 +131,6 @@
             this.txtMatKhau.TabIndex = 4;
             this.txtMatKhau.Text = "123";
             this.txtMatKhau.UseSystemPasswordChar = true;
-            this.txtMatKhau.TextChanged += new System.EventHandler(this.txtMatKhau_TextChanged);
             // 
             // txtTaiKhoan
             // 
@@ -150,7 +149,7 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 2;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            //this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
             // pictureBox1
             // 
@@ -162,7 +161,7 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // Form1
+            // frmDangNhap
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -171,7 +170,7 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.grbDangNhap);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Form1";
+            this.Name = "frmDangNhap";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng Nhập";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);

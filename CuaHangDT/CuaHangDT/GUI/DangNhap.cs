@@ -13,9 +13,9 @@ using System.Security.Cryptography;
 
 namespace CuaHangDT
 {
-    public partial class Form1 : Form
+    public partial class frmDangNhap : Form
     {
-        public Form1()
+        public frmDangNhap()
         {
             InitializeComponent();
         }
@@ -73,30 +73,28 @@ namespace CuaHangDT
             string matKhau = txtMatKhau.Text;
             if (tenDangNhap.Trim() == "") { MessageBox.Show("Vui lòng nhập Tài Khoản!"); return; }
             else if (matKhau.Trim() == "") { MessageBox.Show("Vui lòng nhập Mật Khẩu!"); return; }
-            else
-                foreach (var dn in TaiKhoanMKs)
+            bool dangNhapThanhCong = false;
+
+            foreach (var dn in TaiKhoanMKs)
+            {
+                if (dn.TaiKhoan == tenDangNhap && dn.MatKhau == matKhau)
                 {
-                    if (dn.TaiKhoan == tenDangNhap && dn.MatKhau == matKhau)
-                    {
-                        frmQuanLySanPham home = new frmQuanLySanPham();
-                        this.Hide();          // ẩn form đăng nhập
-                        home.ShowDialog();
-                        this.Show();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Sai tên tài khoản hoặc mật khẩu !!!");
-                    }
+                    dangNhapThanhCong = true;
+                    break;
                 }
-        }
+            }
 
-        private void txtMatKhau_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
+            if (dangNhapThanhCong)
+            {
+                frmQuanLyCuaHang ql = new frmQuanLyCuaHang();
+                this.Hide();          // ẩn form đăng nhập
+                ql.ShowDialog();      // mở form chính
+                this.Show();          // hiện lại khi form chính đóng
+            }
+            else
+            {
+                MessageBox.Show("Sai tên tài khoản hoặc mật khẩu !!!");
+            }
 
         }
     }

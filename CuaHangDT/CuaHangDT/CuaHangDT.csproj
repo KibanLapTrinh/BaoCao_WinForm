@@ -91,6 +91,12 @@
     <Compile Include="GUI\QuanLyHoaDon.Designer.cs">
       <DependentUpon>QuanLyHoaDon.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\QuanLyCuaHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\QuanLyCuaHang.Designer.cs">
+      <DependentUpon>QuanLyCuaHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="TaiKhoanMK.cs" />
     <EmbeddedResource Include="GUI\ChiTietHoaDon.resx">
       <DependentUpon>ChiTietHoaDon.cs</DependentUpon>
@@ -114,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\QuanLyHoaDon.resx">
       <DependentUpon>QuanLyHoaDon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\QuanLyCuaHang.resx">
+      <DependentUpon>QuanLyCuaHang.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

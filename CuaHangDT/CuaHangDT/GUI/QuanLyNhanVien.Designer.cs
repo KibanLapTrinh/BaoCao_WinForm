@@ -46,10 +46,17 @@
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.tSMnDanhMuc = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSQuanLyKhachHang = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSQuanLyNhanVien = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSQuanLyHoaDon = new System.Windows.Forms.ToolStripMenuItem();
+            this.tSDangXuat = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).BeginInit();
             this.groupBox3.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -245,11 +252,57 @@
             this.btnThem.Text = "Thêm";
             this.btnThem.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSMnDanhMuc,
+            this.tSDangXuat});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 70);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1228, 24);
+            this.menuStrip1.TabIndex = 6;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // tSMnDanhMuc
+            // 
+            this.tSMnDanhMuc.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tSQuanLyKhachHang,
+            this.tSQuanLyNhanVien,
+            this.tSQuanLyHoaDon});
+            this.tSMnDanhMuc.Name = "tSMnDanhMuc";
+            this.tSMnDanhMuc.Size = new System.Drawing.Size(74, 20);
+            this.tSMnDanhMuc.Text = "Danh Mục";
+            // 
+            // tSQuanLyKhachHang
+            // 
+            this.tSQuanLyKhachHang.Name = "tSQuanLyKhachHang";
+            this.tSQuanLyKhachHang.Size = new System.Drawing.Size(185, 22);
+            this.tSQuanLyKhachHang.Text = "Quản Lý Khách Hàng";
+            // 
+            // tSQuanLyNhanVien
+            // 
+            this.tSQuanLyNhanVien.Name = "tSQuanLyNhanVien";
+            this.tSQuanLyNhanVien.Size = new System.Drawing.Size(185, 22);
+            this.tSQuanLyNhanVien.Text = "Quản Lý Nhân Viên";
+            // 
+            // tSQuanLyHoaDon
+            // 
+            this.tSQuanLyHoaDon.Name = "tSQuanLyHoaDon";
+            this.tSQuanLyHoaDon.Size = new System.Drawing.Size(185, 22);
+            this.tSQuanLyHoaDon.Text = "Quản Lý Hóa Đơn";
+            // 
+            // tSDangXuat
+            // 
+            this.tSDangXuat.Name = "tSDangXuat";
+            this.tSDangXuat.Size = new System.Drawing.Size(74, 20);
+            this.tSDangXuat.Text = "Đăng Xuất";
+            // 
             // frmQuanLyNhanVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1228, 570);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -264,7 +317,10 @@
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNhanVien)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -288,5 +344,11 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.DataGridView dgvNhanVien;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem tSMnDanhMuc;
+        private System.Windows.Forms.ToolStripMenuItem tSQuanLyKhachHang;
+        private System.Windows.Forms.ToolStripMenuItem tSQuanLyNhanVien;
+        private System.Windows.Forms.ToolStripMenuItem tSQuanLyHoaDon;
+        private System.Windows.Forms.ToolStripMenuItem tSDangXuat;
     }
 }

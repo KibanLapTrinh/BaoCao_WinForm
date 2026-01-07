@@ -9,9 +9,29 @@ using System.Windows.Forms;
 using System.Linq.Expressions;
 namespace CuaHangDT
 {
-     class Connection
+    public class Connection
     {
-        public static string stringConnection = @"Data Source=KIBAN;Initial Catalog=CuaHangDienThoai;Integrated Security=True;TrustServerCertificate=True";
-        
+        public static string stringConnection = @"Data Source=KIBAN;Initial Catalog=CuaHangDienThoai;Integrated Security=True;Encrypt=True;TrustServerCertificate=True";
+        public void testConnection()
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(stringConnection))
+                {
+                    conn.Open();
+                    MessageBox.Show("Kết nối SQL Server thành công!",
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Kết nối thất bại: " + ex.Message,
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
     }
 }
