@@ -15,6 +15,7 @@ namespace CuaHangDT
         public frmQuanLyCuaHang()
         {
             InitializeComponent();
+            this.IsMdiContainer = true;
         }
 
         private void OpenQuanLySanPham()
@@ -29,6 +30,7 @@ namespace CuaHangDT
 
             frmQuanLySanPham frmQLSP = new frmQuanLySanPham();
             frmQLSP.MdiParent = this;
+            frmQLSP.Dock = DockStyle.Fill;
             frmQLSP.Show();
         }
         private void tStripQLSP_Click(object sender, EventArgs e)
@@ -47,6 +49,7 @@ namespace CuaHangDT
 
             frmQuanLyKhachHang frmQLKH = new frmQuanLyKhachHang();
             frmQLKH.MdiParent = this;
+            frmQLKH.Dock = DockStyle.Fill;
             frmQLKH.Show();
         }
         private void tStripQLKH_Click(object sender, EventArgs e)
@@ -65,6 +68,7 @@ namespace CuaHangDT
 
             frmQuanLyNhanVien frmQLNV = new frmQuanLyNhanVien();
             frmQLNV.MdiParent = this;
+            frmQLNV.Dock = DockStyle.Fill;
             frmQLNV.Show();
         }
 
@@ -84,6 +88,7 @@ namespace CuaHangDT
 
             frmQuanLyHoaDon frmQLHD = new frmQuanLyHoaDon();
             frmQLHD.MdiParent = this;
+            frmQLHD.Dock = DockStyle.Fill;
             frmQLHD.Show();
         }
 

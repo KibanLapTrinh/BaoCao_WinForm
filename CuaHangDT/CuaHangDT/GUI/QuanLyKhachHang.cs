@@ -16,7 +16,10 @@ namespace CuaHangDT
         public frmQuanLyKhachHang()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.ControlBox = false;
+            this.Text = "";
+            this.Dock = DockStyle.Fill;
         }
         SqlDataAdapter boDocGhi;
         DataSet dsKhachHang;
@@ -33,15 +36,15 @@ namespace CuaHangDT
             dgvKhachHang.Columns["SDT"].HeaderText = "Số Điện Thoại";
             dgvKhachHang.Columns["DiaChi"].HeaderText = "Địa Chỉ";
             //
-            dgvKhachHang.BorderStyle = BorderStyle.None;
-            dgvKhachHang.BackgroundColor = Color.White;
-            dgvKhachHang.RowTemplate.Height = 32;
-            dgvKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvKhachHang.AllowUserToResizeRows = false;
-            dgvKhachHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            //dgvkhachhang.borderstyle = borderstyle.none;
+            //dgvkhachhang.backgroundcolor = color.white;
+            //dgvkhachhang.rowtemplate.height = 32;
+            //dgvkhachhang.autosizecolumnsmode = datagridviewautosizecolumnsmode.fill;
+            //dgvkhachhang.allowusertoresizerows = false;
+            //dgvkhachhang.columnheadersheightsizemode = datagridviewcolumnheadersheightsizemode.autosize;
         }
         private void frmQuanLyKhachHang_Load(object sender, EventArgs e)
-        {
+        { 
             dataKhachHang();
         }
 
@@ -73,10 +76,48 @@ namespace CuaHangDT
         {
             if (e.RowIndex < 0) return;
             DataGridViewRow row = dgvKhachHang.Rows[e.RowIndex];
+            //lấy dữ liệu từng dòng đưa lên TextBox
             txtMaKH.Text = dgvKhachHang.CurrentRow.Cells[0].Value.ToString();
             txtKhachHang.Text = dgvKhachHang.CurrentRow.Cells[1].Value.ToString();
             txtSDT.Text = dgvKhachHang.CurrentRow.Cells[2].Value.ToString();
             txtDiaChi.Text = dgvKhachHang.CurrentRow.Cells[3].Value.ToString();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            dsKhachHang.Tables[0].Rows[dgvKhachHang.CurrentRow.Index].Delete();
+            boPhatSinh = new SqlCommandBuilder(boDocGhi);
+            boDocGhi.Update(dsKhachHang.Tables[0]);
+            MessageBox.Show("Xóa thành công");
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            DataRow dongMoi = dsKhachHang.Tables[0].Rows[dgvKhachHang.CurrentRow.Index];
+            dongMoi["TenKH"] = txtKhachHang.Text;
+            dongMoi["SDT"] = txtSDT.Text;
+            dongMoi["DiaChi"] = txtDiaChi.Text;
+            boPhatSinh = new SqlCommandBuilder(boDocGhi);
+            boDocGhi.Update(dsKhachHang.Tables[0]);
+            MessageBox.Show("Cập nhật thành công");
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoaTimKiem = txtKhachHang.Text.Trim();//khởi tạo 1 chuỗi gán textbox xóa khoảng trắng đầu cuối
+
+            if (string.IsNullOrEmpty(tuKhoaTimKiem)) // kiểm tra rỗng
+            {
+                dsKhachHang.Tables[0].DefaultView.RowFilter = ""; //xóa hết chữ trong ô tìm kiếm
+                return; // thoát hàm
+            }
+
+            dsKhachHang.Tables[0].DefaultView.RowFilter = $"TenSP like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
+        }
+
+        private void btnHienDanhSach_Click(object sender, EventArgs e)
+        {
+            dsKhachHang.Tables[0].DefaultView.RowFilter = "";
         }
     }
 }

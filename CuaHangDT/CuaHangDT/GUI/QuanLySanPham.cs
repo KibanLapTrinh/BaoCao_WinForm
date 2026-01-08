@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 
 namespace CuaHangDT
@@ -18,7 +19,11 @@ namespace CuaHangDT
         public frmQuanLySanPham()
         {
             InitializeComponent();
-            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.ControlBox = false;
+            this.Text = "";
+            this.Dock = DockStyle.Fill;
+
         }
         //Khai báo DataAdapter
         SqlDataAdapter boDocGhiSP;
@@ -45,23 +50,22 @@ namespace CuaHangDT
             dgvSanPham.Columns["GiaBan"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
 
         }
-        private void btnChonAnh_Click(object sender, EventArgs e)
+
+        private void frmQuanLySanPham_Load(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image files|*.jpg;*.png;*.jpeg;*.bmp";
 
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                // Hiển thị ảnh
-                using (var bmp = new Bitmap(ofd.FileName))
-                {
-                    pBHinhAnh.Image = new Bitmap(bmp);
-                }
+            //Connection connection = new Connection();
+            //connection.testConnection();
+            //Thêm dữ liệu vào combobox
+            cbxHangSX.Items.Add("Apple");
+            cbxHangSX.Items.Add("Samsung");
+            cbxHangSX.Items.Add("Xiaomi");
+            cbxHangSX.Items.Add("Oppo");
+            cbxHangSX.Items.Add("Vivo");
 
-                // Lưu đường dẫn
-                pBHinhAnh.Tag = ofd.FileName;
-            }
+            loadData();
         }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             try
@@ -71,7 +75,9 @@ namespace CuaHangDT
                 dongMoi["TenSP"] = txtTenSP.Text;
                 dongMoi["HangSX"] = cbxHangSX.Text;
                 decimal giaBan;
-                if (!decimal.TryParse(txtGiaBan.Text.Trim(), out giaBan))
+                if (!decimal.TryParse(
+                    txtGiaBan.Text.Replace(".", "").Replace(",", ""),
+                    out giaBan))
                 {
                     MessageBox.Show("Giá bán phải là số!");
                     return;
@@ -93,27 +99,57 @@ namespace CuaHangDT
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void frmQuanLySanPham_Load(object sender, EventArgs e)
-        {
-            //Connection connection = new Connection();
-            //connection.testConnection();
-            //Thêm dữ liệu vào combobox
-            cbxHangSX.Items.Add("Apple");
-            cbxHangSX.Items.Add("Samsung");
-            cbxHangSX.Items.Add("Xiaomi");
-            cbxHangSX.Items.Add("Oppo");
-            cbxHangSX.Items.Add("Vivo");
 
-            loadData();
+        private void btnChonAnh_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Image Files|*.jpg;*.png;*.jpeg";
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                string sourcePath = ofd.FileName;
+                string destPath = Path.Combine(Application.StartupPath, "Images",
+                                               Path.GetFileName(sourcePath));
+
+                Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Images"));
+                File.Copy(sourcePath, destPath, true);
+
+                pBHinhAnh.Tag = destPath;   //LƯU ĐƯỜNG DẪN ẢNH
+
+                using (FileStream fs = new FileStream(destPath, FileMode.Open, FileAccess.Read))
+                {
+                    pBHinhAnh.Image = Image.FromStream(fs);
+                }
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            if (txtMaSP.Text == "")
+            {
+                MessageBox.Show("Chưa chọn sản phẩm");
+                return;
+            }
+
+            //string query = "DELETE FROM San_Pham WHERE MaSP = @MaSP";
             //Xóa hàng trong dataSet
             dsSanPham.Tables[0].Rows[dgvSanPham.CurrentRow.Index].Delete();
-                boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
-                boDocGhiSP.Update(dsSanPham.Tables[0]);
+            boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
+            boDocGhiSP.Update(dsSanPham.Tables[0]);
             MessageBox.Show("Xóa thành công.");
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoaTimKiem = txtTenSP.Text.Trim();//khởi tạo 1 chuỗi gán textbox xóa khoảng trắng đầu cuối
+
+            if (string.IsNullOrEmpty(tuKhoaTimKiem)) // kiểm tra rỗng
+            {
+                dsSanPham.Tables[0].DefaultView.RowFilter = ""; //xóa hết chữ trong ô tìm kiếm
+                return; // thoát hàm
+            }
+
+            dsSanPham.Tables[0].DefaultView.RowFilter = $"TenSP like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
 
         private void dgvSanPham_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -180,19 +216,6 @@ namespace CuaHangDT
             {
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message);
             }
-        }
-
-        private void btnTimKiem_Click(object sender, EventArgs e)
-        {
-            string tuKhoaTimKiem = txtTenSP.Text.Trim();//khởi tạo 1 chuỗi gán textbox xóa khoảng trắng đầu cuối
-
-            if (string.IsNullOrEmpty(tuKhoaTimKiem)) // kiểm tra rỗng
-            {
-                dsSanPham.Tables[0].DefaultView.RowFilter = ""; //xóa hết chữ trong ô tìm kiếm
-                return; // thoát hàm
-            }
-
-            dsSanPham.Tables[0].DefaultView.RowFilter =$"TenSP like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
     }
 }
