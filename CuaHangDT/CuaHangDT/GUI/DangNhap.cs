@@ -21,7 +21,7 @@ namespace CuaHangDT
         }
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult Exit = MessageBox.Show("Bạn có chắc chắn muốn thoát?", 
+            DialogResult Exit = MessageBox.Show("Bạn có chắc chắn muốn thoát?",
                 "Xác Nhận", 
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
@@ -64,20 +64,22 @@ namespace CuaHangDT
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            //cbxChucVu.Items.Add("Nhân Viên");
+            //cbxChucVu.Items.Add("Admin");
             GetAllDangNhap(); // load dữ liệu từ database
         }
-
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             string tenDangNhap = txtTaiKhoan.Text;
             string matKhau = txtMatKhau.Text;
+            //string chucVu = cbxChucVu.Text;
             if (tenDangNhap.Trim() == "") { MessageBox.Show("Vui lòng nhập Tài Khoản!"); return; }
             else if (matKhau.Trim() == "") { MessageBox.Show("Vui lòng nhập Mật Khẩu!"); return; }
             bool dangNhapThanhCong = false;
 
             foreach (var dn in TaiKhoanMKs)
             {
-                if (dn.TaiKhoan == tenDangNhap && dn.MatKhau == matKhau)
+                if (dn.TaiKhoan == tenDangNhap && dn.MatKhau == matKhau) //&& dn.ChucVu == chucVu)
                 {
                     dangNhapThanhCong = true;
                     break;
@@ -95,6 +97,11 @@ namespace CuaHangDT
             {
                 MessageBox.Show("Sai tên tài khoản hoặc mật khẩu !!!");
             }
+
+        }
+
+        private void cbxChucVu_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

@@ -18,6 +18,7 @@ namespace CuaHangDT
         public frmQuanLySanPham()
         {
             InitializeComponent();
+            this.WindowState = FormWindowState.Maximized;
         }
         //Khai báo DataAdapter
         SqlDataAdapter boDocGhiSP;
@@ -81,7 +82,7 @@ namespace CuaHangDT
                 dsSanPham.Tables[0].Rows.Add(dongMoi);
 
                 //sinh SQL INSERT
-                SqlCommandBuilder boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
+                boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
                 boDocGhiSP.Update(dsSanPham.Tables[0]);
 
                 MessageBox.Show("Thêm thành công");
@@ -94,8 +95,8 @@ namespace CuaHangDT
         }
         private void frmQuanLySanPham_Load(object sender, EventArgs e)
         {
-            Connection connection = new Connection();
-            connection.testConnection();
+            //Connection connection = new Connection();
+            //connection.testConnection();
             //Thêm dữ liệu vào combobox
             cbxHangSX.Items.Add("Apple");
             cbxHangSX.Items.Add("Samsung");
@@ -125,15 +126,15 @@ namespace CuaHangDT
             txtGiaBan.Text = dgvSanPham.CurrentRow.Cells[3].Value.ToString();
 
             // hiển thị hình ảnh
-            string path = row.Cells["HinhAnh"].Value?.ToString();
+            string hinhAnh = row.Cells["HinhAnh"].Value?.ToString();
 
-            if (!string.IsNullOrEmpty(path) && File.Exists(path))
+            if (!string.IsNullOrEmpty(hinhAnh) && File.Exists(hinhAnh))
             {
-                using (var bmp = new Bitmap(path))
+                using (var bmp = new Bitmap(hinhAnh))
                 {
                     pBHinhAnh.Image = new Bitmap(bmp);
                 }
-                pBHinhAnh.Tag = path;
+                pBHinhAnh.Tag = hinhAnh;
             }
             else
             {
@@ -167,7 +168,7 @@ namespace CuaHangDT
                 }
                 row["GiaBan"] = giaBan;
 
-                row["HinhAnh"] = pBHinhAnh.Tag?.ToString();
+                row["HinhAnh"] = pBHinhAnh.Tag?.ToString(); //lưu đường dẫn hình
 
                 // Sinh lệnh UPDATE
                 SqlCommandBuilder boPhatSinh = new SqlCommandBuilder(boDocGhiSP);
@@ -179,6 +180,19 @@ namespace CuaHangDT
             {
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message);
             }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoaTimKiem = txtTenSP.Text.Trim();//khởi tạo 1 chuỗi gán textbox xóa khoảng trắng đầu cuối
+
+            if (string.IsNullOrEmpty(tuKhoaTimKiem)) // kiểm tra rỗng
+            {
+                dsSanPham.Tables[0].DefaultView.RowFilter = ""; //xóa hết chữ trong ô tìm kiếm
+                return; // thoát hàm
+            }
+
+            dsSanPham.Tables[0].DefaultView.RowFilter =$"TenSP like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
     }
 }

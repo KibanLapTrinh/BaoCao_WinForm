@@ -94,14 +94,14 @@ namespace CuaHangDT
 
         private void tStripDangXuat_Click(object sender, EventArgs e)
         {
-            DialogResult Exit = MessageBox.Show("Bạn có chắc chắn muốn thoát?",
+            DialogResult Exit = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất?",
                 "Xác Nhận",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
             if (Exit == DialogResult.Yes)
             {
-                frmDangNhap login = new frmDangNhap();
-                login.Show();
+                frmDangNhap dnhap = new frmDangNhap();
+                dnhap.Show();
 
                 this.Close(); // đóng form hiện tại
             }
@@ -126,5 +126,46 @@ namespace CuaHangDT
         {
             OpenQuanLyHoaDon();
         }
+
+        private void frmQuanLyCuaHang_Load(object sender, EventArgs e)
+        {
+            Connection connection = new Connection();
+            connection.testConnection();
+
+            //PhanQuyen();
+        }
+        //string _chucVu;
+        //private void PhanQuyen()
+        //{
+        //    if (_chucVu == "NhanVien")
+        //    {
+        //        ĐƯỢC PHÉP
+        //        tStripQLSP.Enabled = true;
+        //        tStripQLKH.Enabled = true;
+        //        tStripQLHD.Enabled = true;
+
+        //        tSBtnQLSP.Enabled = true;
+        //        tSBtnQLKH.Enabled = true;
+        //        tSBtnQLHD.Enabled = true;
+
+        //        KHÔNG ĐƯỢC PHÉP
+        //        tStripQLNV.Enabled = false;
+        //        tSBtnQLNV.Enabled = false;
+        //    }
+        //    else if (_chucVu == "Admin")
+        //    {
+        //        Admin được tất cả
+        //        tStripQLSP.Enabled = true;
+        //        tStripQLKH.Enabled = true;
+        //        tStripQLHD.Enabled = true;
+        //        tStripQLNV.Enabled = true;
+
+        //        tSBtnQLSP.Enabled = true;
+        //        tSBtnQLKH.Enabled = true;
+        //        tSBtnQLHD.Enabled = true;
+        //        tSBtnQLNV.Enabled = true;
+        //    }
+        //}
+
     }
 }
