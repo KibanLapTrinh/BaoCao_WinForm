@@ -37,14 +37,22 @@ namespace CuaHangDT
             dgvKhachHang.Columns["DiaChi"].HeaderText = "Địa Chỉ";
             //
             //dgvkhachhang.borderstyle = borderstyle.none;
-            //dgvkhachhang.backgroundcolor = color.white;
+            //dgvkhachhang.backgroundcolor = color.white;f
             //dgvkhachhang.rowtemplate.height = 32;
             //dgvkhachhang.autosizecolumnsmode = datagridviewautosizecolumnsmode.fill;
             //dgvkhachhang.allowusertoresizerows = false;
             //dgvkhachhang.columnheadersheightsizemode = datagridviewcolumnheadersheightsizemode.autosize;
         }
+        void ClearText()
+        {
+            txtMaKH.Clear();
+            txtKhachHang.Clear();
+            txtSDT.Clear();
+            txtDiaChi.Clear();
+        }
+
         private void frmQuanLyKhachHang_Load(object sender, EventArgs e)
-        { 
+        {
             dataKhachHang();
         }
 
@@ -54,6 +62,12 @@ namespace CuaHangDT
             {
                 DataRow dongMoi = dsKhachHang.Tables[0].NewRow();
                 dongMoi["MaKH"] = txtMaKH.Text;
+                if (string.IsNullOrEmpty(txtMaKH.Text))
+                {
+                    MessageBox.Show("Mã KH không được để trống");
+                    return;
+                }
+
                 dongMoi["TenKH"] = txtKhachHang.Text;
                 dongMoi["SDT"] = txtSDT.Text;
                 dongMoi["DiaChi"] = txtDiaChi.Text;
@@ -70,6 +84,7 @@ namespace CuaHangDT
                 MessageBox.Show("Lỗi khi thêm: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            ClearText();
         }
 
         private void dgvKhachHang_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -85,10 +100,13 @@ namespace CuaHangDT
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            //if (dgvKhachHang.CurrentRow == null) return; //kiểm tra
+
             dsKhachHang.Tables[0].Rows[dgvKhachHang.CurrentRow.Index].Delete();
             boPhatSinh = new SqlCommandBuilder(boDocGhi);
             boDocGhi.Update(dsKhachHang.Tables[0]);
             MessageBox.Show("Xóa thành công");
+            ClearText();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
@@ -112,7 +130,7 @@ namespace CuaHangDT
                 return; // thoát hàm
             }
 
-            dsKhachHang.Tables[0].DefaultView.RowFilter = $"TenSP like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
+            dsKhachHang.Tables[0].DefaultView.RowFilter = $"TenKH like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
 
         private void btnHienDanhSach_Click(object sender, EventArgs e)
