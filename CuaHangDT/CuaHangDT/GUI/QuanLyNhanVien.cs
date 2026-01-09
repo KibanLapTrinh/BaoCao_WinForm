@@ -16,14 +16,26 @@ namespace CuaHangDT
         public frmQuanLyNhanVien()
         {
             InitializeComponent();
-            this.FormBorderStyle = FormBorderStyle.None;
+            this.FormBorderStyle = FormBorderStyle.None;//Bỏ toàn bộ viền
             this.ControlBox = false;
-            this.Text = "";
-            this.Dock = DockStyle.Fill;
+            this.Text = "";//Xóa tiêu đề Form
+            //this.Dock = DockStyle.Fill;
         }
         SqlDataAdapter boDocGhi;
         DataSet dsNhanVien;
         SqlCommandBuilder boPhatSinh;
+        void countNhanVien()
+        {
+            string sql = "SELECT COUNT(*) FROM Nhan_Vien";
+
+            using (SqlConnection conn = new SqlConnection(Connection.stringConnection))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                int soNV = (int)cmd.ExecuteScalar(); // trả về 1 giá trị duy nhất (Count , sum , max)
+                txtSoNhanVien.Text = soNV.ToString();
+            }
+        }
         void dataNhanVien()
         {
             string sqlSelect ="Select * from Nhan_Vien";
@@ -42,6 +54,7 @@ namespace CuaHangDT
         }
         private void frmQuanLyNhanVien_Load(object sender, EventArgs e)
         {
+            countNhanVien();
             dataNhanVien();
         }
 
@@ -100,6 +113,7 @@ namespace CuaHangDT
 
         private void btnSua_Click(object sender, EventArgs e)
         {
+            if (dgvNhanVien.CurrentRow == null) return;
             DataRow dongMoi = dsNhanVien.Tables[0].Rows[dgvNhanVien.CurrentRow.Index];
             dongMoi["MaNV"] = txtMaNV.Text;
             dongMoi["HoTenNV"] = txtHoTen.Text;
@@ -118,12 +132,35 @@ namespace CuaHangDT
         }
         private void btnXoa_Click(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show("Bạn có chắc muốn xóa?",
+                    "Xác nhận", 
+                    MessageBoxButtons.YesNo) == DialogResult.No)
+                return;
             dsNhanVien.Tables[0].Rows[dgvNhanVien.CurrentRow.Index].Delete();
             boPhatSinh = new SqlCommandBuilder(boDocGhi);
             boDocGhi.Update(dsNhanVien.Tables[0]);
             MessageBox.Show("Xóa thành công");
            ClearText();
+        }
+
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            dataNhanVien();   // load lại DataGridView
+            countNhanVien();  // cập nhật số lượng nhân viên
+            ClearText(); //xóa ô đã nhập
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            string tuKhoaTimKiem = txtHoTen.Text.Trim();//khởi tạo 1 chuỗi gán textbox xóa khoảng trắng đầu cuối
+
+            if (string.IsNullOrEmpty(tuKhoaTimKiem)) // kiểm tra rỗng
+            {
+                dsNhanVien.Tables[0].DefaultView.RowFilter = ""; //xóa hết chữ trong ô tìm kiếm
+                return; // thoát hàm
+            }
+
+            dsNhanVien.Tables[0].DefaultView.RowFilter = $"HoTenNV like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
     }
 }

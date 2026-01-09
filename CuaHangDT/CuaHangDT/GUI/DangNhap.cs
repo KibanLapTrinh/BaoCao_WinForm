@@ -97,12 +97,6 @@ namespace CuaHangDT
             {
                 MessageBox.Show("Sai tên tài khoản hoặc mật khẩu !!!");
             }
-
-        }
-
-        private void cbxChucVu_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

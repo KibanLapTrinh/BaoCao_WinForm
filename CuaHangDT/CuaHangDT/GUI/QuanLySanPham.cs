@@ -114,7 +114,7 @@ namespace CuaHangDT
                 Directory.CreateDirectory(Path.Combine(Application.StartupPath, "Images"));
                 File.Copy(sourcePath, destPath, true);
 
-                pBHinhAnh.Tag = destPath;   //LƯU ĐƯỜNG DẪN ẢNH
+                pBHinhAnh.Tag = destPath;   //lưu đường dẫn ảnh
 
                 using (FileStream fs = new FileStream(destPath, FileMode.Open, FileAccess.Read))
                 {

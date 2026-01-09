@@ -47,6 +47,7 @@
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnReload = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhachHang)).BeginInit();
@@ -78,11 +79,11 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(222, 429);
+            this.groupBox1.Location = new System.Drawing.Point(230, 429);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox1.Size = new System.Drawing.Size(887, 128);
+            this.groupBox1.Size = new System.Drawing.Size(857, 128);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Thông tin Khách Hàng";
@@ -166,12 +167,12 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.dgvKhachHang);
-            this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(300, 90);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox2.Size = new System.Drawing.Size(670, 329);
+            this.groupBox2.Size = new System.Drawing.Size(673, 329);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Danh Sách Khách Hàng";
@@ -189,16 +190,17 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.btnReload);
             this.groupBox3.Controls.Add(this.btnXoa);
             this.groupBox3.Controls.Add(this.btnTimKiem);
             this.groupBox3.Controls.Add(this.btnSua);
             this.groupBox3.Controls.Add(this.btnThem);
             this.groupBox3.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(392, 567);
+            this.groupBox3.Location = new System.Drawing.Point(388, 567);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.groupBox3.Size = new System.Drawing.Size(492, 142);
+            this.groupBox3.Size = new System.Drawing.Size(489, 130);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chức Năng";
@@ -220,7 +222,7 @@
             // 
             this.btnTimKiem.BackColor = System.Drawing.Color.Brown;
             this.btnTimKiem.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnTimKiem.Location = new System.Drawing.Point(182, 78);
+            this.btnTimKiem.Location = new System.Drawing.Point(90, 78);
             this.btnTimKiem.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(133, 37);
@@ -262,6 +264,17 @@
             this.menuStrip1.Size = new System.Drawing.Size(1247, 24);
             this.menuStrip1.TabIndex = 6;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnReload
+            // 
+            this.btnReload.BackColor = System.Drawing.Color.Brown;
+            this.btnReload.ForeColor = System.Drawing.Color.White;
+            this.btnReload.Location = new System.Drawing.Point(267, 78);
+            this.btnReload.Name = "btnReload";
+            this.btnReload.Size = new System.Drawing.Size(121, 37);
+            this.btnReload.TabIndex = 6;
+            this.btnReload.Text = "Reload";
+            this.btnReload.UseVisualStyleBackColor = false;
             // 
             // frmQuanLyKhachHang
             // 
@@ -311,5 +324,6 @@
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.DataGridView dgvKhachHang;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.Button btnReload;
     }
 }
