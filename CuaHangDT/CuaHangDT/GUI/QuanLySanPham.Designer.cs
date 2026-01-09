@@ -93,7 +93,7 @@
             this.label2.Location = new System.Drawing.Point(7, 32);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(110, 16);
+            this.label2.Size = new System.Drawing.Size(137, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mã Sản Phẩm :";
             // 
@@ -102,7 +102,7 @@
             this.txtMaSP.Location = new System.Drawing.Point(125, 27);
             this.txtMaSP.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaSP.Name = "txtMaSP";
-            this.txtMaSP.Size = new System.Drawing.Size(286, 27);
+            this.txtMaSP.Size = new System.Drawing.Size(286, 32);
             this.txtMaSP.TabIndex = 4;
             // 
             // label3
@@ -112,7 +112,7 @@
             this.label3.Location = new System.Drawing.Point(1, 82);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(116, 16);
+            this.label3.Size = new System.Drawing.Size(143, 20);
             this.label3.TabIndex = 1;
             this.label3.Text = "Tên Sản Phẩm :";
             // 
@@ -121,7 +121,7 @@
             this.txtGiaBan.Location = new System.Drawing.Point(126, 167);
             this.txtGiaBan.Margin = new System.Windows.Forms.Padding(4);
             this.txtGiaBan.Name = "txtGiaBan";
-            this.txtGiaBan.Size = new System.Drawing.Size(286, 27);
+            this.txtGiaBan.Size = new System.Drawing.Size(286, 32);
             this.txtGiaBan.TabIndex = 7;
             // 
             // txtTenSP
@@ -129,7 +129,7 @@
             this.txtTenSP.Location = new System.Drawing.Point(126, 77);
             this.txtTenSP.Margin = new System.Windows.Forms.Padding(4);
             this.txtTenSP.Name = "txtTenSP";
-            this.txtTenSP.Size = new System.Drawing.Size(286, 27);
+            this.txtTenSP.Size = new System.Drawing.Size(286, 32);
             this.txtTenSP.TabIndex = 5;
             // 
             // label5
@@ -139,7 +139,7 @@
             this.label5.Location = new System.Drawing.Point(47, 172);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 16);
+            this.label5.Size = new System.Drawing.Size(89, 20);
             this.label5.TabIndex = 3;
             this.label5.Text = "Giá Bán :";
             // 
@@ -149,7 +149,7 @@
             this.cbxHangSX.Location = new System.Drawing.Point(126, 123);
             this.cbxHangSX.Margin = new System.Windows.Forms.Padding(4);
             this.cbxHangSX.Name = "cbxHangSX";
-            this.cbxHangSX.Size = new System.Drawing.Size(286, 27);
+            this.cbxHangSX.Size = new System.Drawing.Size(286, 31);
             this.cbxHangSX.TabIndex = 8;
             // 
             // label4
@@ -159,7 +159,7 @@
             this.label4.Location = new System.Drawing.Point(1, 128);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(117, 16);
+            this.label4.Size = new System.Drawing.Size(147, 20);
             this.label4.TabIndex = 2;
             this.label4.Text = "Hãng Sản Xuất :";
             // 
@@ -281,7 +281,7 @@
             // 
             // frmQuanLySanPham
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1160, 721);

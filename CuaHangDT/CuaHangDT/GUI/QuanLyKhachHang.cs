@@ -39,7 +39,7 @@ namespace CuaHangDT
             //dgvkhachhang.borderstyle = borderstyle.none;
             //dgvkhachhang.backgroundcolor = color.white;f
             //dgvkhachhang.rowtemplate.height = 32;
-            //dgvkhachhang.autosizecolumnsmode = datagridviewautosizecolumnsmode.fill;
+            dgvKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             //dgvkhachhang.allowusertoresizerows = false;
             //dgvkhachhang.columnheadersheightsizemode = datagridviewcolumnheadersheightsizemode.autosize;
         }
