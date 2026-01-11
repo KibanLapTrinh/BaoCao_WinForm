@@ -101,7 +101,6 @@ namespace CuaHangDT
         private void btnXoa_Click(object sender, EventArgs e)
         {
             //if (dgvKhachHang.CurrentRow == null) return; //kiểm tra
-
             dsKhachHang.Tables[0].Rows[dgvKhachHang.CurrentRow.Index].Delete();
             boPhatSinh = new SqlCommandBuilder(boDocGhi);
             boDocGhi.Update(dsKhachHang.Tables[0]);
@@ -132,10 +131,10 @@ namespace CuaHangDT
 
             dsKhachHang.Tables[0].DefaultView.RowFilter = $"TenKH like '%{tuKhoaTimKiem}%'"; //lệnh sql tìm kiếm
         }
-
-        private void btnHienDanhSach_Click(object sender, EventArgs e)
+        private void btnReload_Click(object sender, EventArgs e)
         {
-            dsKhachHang.Tables[0].DefaultView.RowFilter = "";
+            dataKhachHang();
+            ClearText();
         }
     }
 }
