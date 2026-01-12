@@ -294,7 +294,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1222, 618);
+            this.ClientSize = new System.Drawing.Size(1222, 624);
             this.Controls.Add(this.txtSoNhanVien);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.menuStrip1);

@@ -26,15 +26,21 @@ namespace CuaHangDT
         SqlCommandBuilder boPhatSinh;
         void countNhanVien()
         {
-            string sql = "SELECT COUNT(*) FROM Nhan_Vien";
+            ////string sql = "SELECT COUNT(*) AS TongNhanVien FROM Nhan_Vien";
+            string sqlSelect = "SELECT COUNT(*) FROM Nhan_Vien";
+            ////boDocGhi = new SqlDataAdapter(sql, Connection.stringConnection);
+            ////dsNhanVien = new DataSet();
+            ////boDocGhi.Fill(dsNhanVien);
+            ////dgvNhanVien.DataSource = dsNhanVien.Tables[0];
 
             using (SqlConnection conn = new SqlConnection(Connection.stringConnection))
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand(sql, conn);
+                SqlCommand cmd = new SqlCommand(sqlSelect, conn);
                 int soNV = (int)cmd.ExecuteScalar(); // trả về 1 giá trị duy nhất (Count , sum , max)
                 txtSoNhanVien.Text = soNV.ToString();
             }
+            dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
         void dataNhanVien()
         {
@@ -91,6 +97,7 @@ namespace CuaHangDT
                 MessageBox.Show("Lỗi khi thêm: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            countNhanVien();
             //ClearText();
         }
 

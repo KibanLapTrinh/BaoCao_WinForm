@@ -51,7 +51,7 @@
             this.dgvHoaDon = new System.Windows.Forms.DataGridView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
-            this.btnHienDanhSach = new System.Windows.Forms.Button();
+            this.btnHoaDon = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnThem = new System.Windows.Forms.Button();
@@ -172,7 +172,6 @@
             this.label7.Size = new System.Drawing.Size(115, 19);
             this.label7.TabIndex = 9;
             this.label7.Text = "Tên Khách Hàng:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label6
             // 
@@ -241,7 +240,6 @@
             this.label2.Size = new System.Drawing.Size(97, 19);
             this.label2.TabIndex = 0;
             this.label2.Text = "Mã Hóa Đơn :";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // groupBox2
             // 
@@ -263,12 +261,12 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnTimKiem);
-            this.groupBox4.Controls.Add(this.btnHienDanhSach);
+            this.groupBox4.Controls.Add(this.btnHoaDon);
             this.groupBox4.Controls.Add(this.btnXoa);
             this.groupBox4.Controls.Add(this.btnSua);
             this.groupBox4.Controls.Add(this.btnThem);
             this.groupBox4.Font = new System.Drawing.Font("Times New Roman", 12.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(136, 596);
+            this.groupBox4.Location = new System.Drawing.Point(127, 596);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -287,15 +285,15 @@
             this.btnTimKiem.Text = "Tìm Kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = true;
             // 
-            // btnHienDanhSach
+            // btnHoaDon
             // 
-            this.btnHienDanhSach.Location = new System.Drawing.Point(490, 29);
-            this.btnHienDanhSach.Margin = new System.Windows.Forms.Padding(4);
-            this.btnHienDanhSach.Name = "btnHienDanhSach";
-            this.btnHienDanhSach.Size = new System.Drawing.Size(119, 43);
-            this.btnHienDanhSach.TabIndex = 3;
-            this.btnHienDanhSach.Text = "In Hóa Đơn";
-            this.btnHienDanhSach.UseVisualStyleBackColor = true;
+            this.btnHoaDon.Location = new System.Drawing.Point(490, 29);
+            this.btnHoaDon.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHoaDon.Name = "btnHoaDon";
+            this.btnHoaDon.Size = new System.Drawing.Size(119, 43);
+            this.btnHoaDon.TabIndex = 3;
+            this.btnHoaDon.Text = "In Hóa Đơn";
+            this.btnHoaDon.UseVisualStyleBackColor = true;
             // 
             // btnXoa
             // 
@@ -408,7 +406,6 @@
             this.txtSoLuong.Name = "txtSoLuong";
             this.txtSoLuong.Size = new System.Drawing.Size(155, 26);
             this.txtSoLuong.TabIndex = 2;
-            this.txtSoLuong.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label11
             // 
@@ -432,7 +429,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1042, 712);
+            this.ClientSize = new System.Drawing.Size(1042, 689);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox2);
@@ -444,6 +441,7 @@
             this.Name = "frmQuanLyHoaDon";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản Lý Hóa Đơn";
+            this.Load += new System.EventHandler(this.frmQuanLyHoaDon_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -467,7 +465,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button btnTimKiem;
-        private System.Windows.Forms.Button btnHienDanhSach;
+        private System.Windows.Forms.Button btnHoaDon;
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnThem;

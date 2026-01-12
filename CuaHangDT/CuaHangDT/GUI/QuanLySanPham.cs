@@ -31,6 +31,13 @@ namespace CuaHangDT
         DataSet dsSanPham;
         //Khai Báo SqlCommandBuilder
         SqlCommandBuilder boPhatSinh;
+        void ClearText()
+        {
+            txtMaSP.Clear();
+            txtTenSP.Clear();
+            txtGiaBan.Clear();
+            cbxHangSX.Items.Clear();
+        }
         void loadData()
         {
             string sqlSelect = "Select * from San_Pham";
@@ -216,6 +223,13 @@ namespace CuaHangDT
             {
                 MessageBox.Show("Lỗi khi sửa: " + ex.Message);
             }
+        }
+
+        
+        private void btnReload_Click(object sender, EventArgs e)
+        {
+            ClearText();
+            loadData();
         }
     }
 }
